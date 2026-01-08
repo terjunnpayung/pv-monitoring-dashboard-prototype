@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandung TV Main Dashboard</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/dist/output.css">
+</head>
+
+<body class="min-h-screen w-full flex items-center justify-center">
+    <main id="mainContent" class="h-full container flex flex-col gap-8 px-8 pt-8 pb-12">
+        <h1 class="font-bold text-center">PV Dashboard Monitoring System</h1>
+        <!-- filter container -->
+        <div class="filter-container flex flex-col gap-2">
+            <!-- site select -->
+            <div class="site-container flex gap-4">
+                <label for="siteSelect" class="font-bold">Site:</label>
+                <select id="siteSelect"></select>
+            </div>
+            <!-- date select -->
+            <div class="date-container flex gap-4">
+                <label for="dateSelect" class="font-bold">Date:</label>
+                <select id="dateSelect"></select>
+            </div>
+            <!-- time select -->
+            <div class="time-container flex gap-4">
+                <!-- time input -->
+                <div class="time-slider flex gap-4">
+                    <label for="timeSlider" class="font-bold">Time:</label>
+                    <input type="time" id="timeDisplay" value="23:59">
+                </div>
+                <!-- time slider -->
+                <input type="range" id="timeSlider" min="0" max="1439" value="1439"
+                    class="accent-black cursor-pointer w-full">
+            </div>
+        </div>
+        <!-- content container -->
+        <section class="content-container flex flex-col-reverse gap-8 md:flex-col">
+            <!-- stats container -->
+            <div
+                class="stats-container flex flex-col gap-4 justify-between items-stretch w-full md:grid md:grid-cols-3">
+                <!-- main stats -->
+                <div
+                    class="stats flex flex-col gap-4 justify-center items-stretch md:grid md:grid-cols-2 md:col-span-2">
+                    <!-- curernt power -->
+                    <div class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center">
+                        <h3 class="font-bold">Current Power</h3>
+                        <p><span id="currentPowerText">0.00</span> kW</p>
+                    </div>
+                    <!-- Current load -->
+                    <div class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center">
+                        <h3 class="font-bold">Current Load</h3>
+                        <p><span id="totalLoadText">0.00</span> kWh</p>
+                    </div>
+                    <!-- current temperature -->
+                    <div class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center">
+                        <h3 class="font-bold">Current Temperature</h3>
+                        <p><span id="currentTempText">0.00</span> °C</p>
+                    </div>
+                    <!-- performance ratio -->
+                    <div class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center">
+                        <h3 class="font-bold">Performance Ratio</h3>
+                        <p><span id="currentPRText">0.00</span>%</p>
+                    </div>
+                </div>
+                <!-- highlight stats -->
+                <!-- Today yield -->
+                <div
+                    class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center h-full bg-black text-white">
+                    <h3 class="font-bold md:text-2xl">Today Yield</h3>
+                    <p class="md:font-light md:text-xl"><span id="totalYieldText">0.00</span> kWh</p>
+                </div>
+            </div>
+            <!-- chart container -->
+            <div class="chart-container flex flex-col justify-center items-center gap-2 h-[35vh] pt-4 sm:h-[50vh]">
+                <h3 class="font-bold">Daily Production</h3>
+                <canvas id="solarChart"></canvas>
+            </div>
+        </section>
+    </main>
+    <!-- js -->
+    <script src="../js/appDashboardBandungTV.js"></script>
+    <!-- chart-js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>
