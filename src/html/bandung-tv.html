@@ -9,58 +9,74 @@
     <link rel="stylesheet" href="/dist/output.css">
 </head>
 
-<body class="min-h-screen w-full flex items-center justify-center">
-    <main id="mainContent" class="h-full container flex flex-col gap-8 px-8 pt-8 pb-12">
-        <h1 class="font-bold text-center">PV Dashboard Monitoring System</h1>
+<body
+    class="flex items-center justify-center w-full min-h-screen text-zinc-950 bg-zinc-50 font-poppins dark:text-zinc-50 dark:bg-zinc-900">
+    <main id="mainContent" class="container flex flex-col h-full gap-8 px-8 pt-8 pb-12">
+        <!-- title -->
+        <section class="flex items-center gap-2 title">
+            <button id="darkModeToggle" class="flex justify-center items-center"></button>
+            <h1 class="font-bold text-left">PV Dashboard Monitoring System</h1>
+        </section>
         <!-- filter container -->
-        <div class="filter-container flex flex-col gap-2">
-            <!-- site select -->
-            <div class="site-container flex gap-4">
-                <label for="siteSelect" class="font-bold">Site:</label>
-                <select id="siteSelect"></select>
-            </div>
-            <!-- date select -->
-            <div class="date-container flex gap-4">
-                <label for="dateSelect" class="font-bold">Date:</label>
-                <select id="dateSelect"></select>
+        <section class="flex flex-col gap-4 filter-container">
+            <!-- date and site select -->
+            <div class="flex flex-col w-full gap-4 site-date-container sm:flex-row">
+                <!-- site select -->
+                <div class="flex flex-col w-full gap-2 site-container">
+                    <label for="siteSelect" class="font-bold">Site</label>
+                    <select id="siteSelect"
+                        class="w-full px-4 py-3 transition-all border border-gray-300 rounded-lg outline-none appearance-none focus:border-purple-950 fous:ring-2 focus:ring-purple-300 dark:focus:border-yellow-500 dark:focus:ring-yellow-200"></select>
+                </div>
+                <!-- date select -->
+                <div class="flex flex-col w-full gap-2 date-container">
+                    <label for="dateSelect" class="font-bold">Date</label>
+                    <select id="dateSelect"
+                        class="w-full px-4 py-3 transition-all border border-gray-300 rounded-lg outline-none appearance-none focus:border-purple-950 focus:ring-2 focus:ring-purple-300 dark:focus:border-yellow-500 dark:focus:ring-yellow-200"></select>
+                    </select>
+                </div>
             </div>
             <!-- time select -->
-            <div class="time-container flex gap-4">
+            <div class="flex flex-col gap-4 time-container">
                 <!-- time input -->
-                <div class="time-slider flex gap-4">
-                    <label for="timeSlider" class="font-bold">Time:</label>
-                    <input type="time" id="timeDisplay" value="23:59">
+                <div class="flex flex-col gap-2 time-slider">
+                    <label for="timeSlider" class="font-bold">Time</label>
+                    <input type="time" id="timeDisplay" value="23:59"
+                        class="w-full px-4 py-3 transition-all border border-gray-300 rounded-lg outline-none appearance-none focus:border-purple-950 focus:ring-2 focus:ring-purple-300 dark:focus:border-yellow-500 dark:focus:ring-yellow-200">
                 </div>
                 <!-- time slider -->
                 <input type="range" id="timeSlider" min="0" max="1439" value="1439"
-                    class="accent-black cursor-pointer w-full">
+                    class="w-full cursor-pointer accent-purple-950 dark:accent-yellow-500">
             </div>
-        </div>
+        </section>
         <!-- content container -->
-        <section class="content-container flex flex-col-reverse gap-8 md:flex-col">
+        <section class="flex flex-col-reverse gap-8 content-container md:flex-col">
             <!-- stats container -->
             <div
-                class="stats-container flex flex-col gap-4 justify-between items-stretch w-full md:grid md:grid-cols-3">
+                class="flex flex-col items-stretch justify-between w-full gap-4 stats-container md:grid md:grid-cols-3">
                 <!-- main stats -->
                 <div
-                    class="stats flex flex-col gap-4 justify-center items-stretch md:grid md:grid-cols-2 md:col-span-2">
+                    class="flex flex-col items-stretch justify-center gap-4 stats md:grid md:grid-cols-2 md:col-span-2">
                     <!-- curernt power -->
-                    <div class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center">
+                    <div
+                        class="flex flex-col justify-center w-full p-4 border rounded-lg border-zinc-950 stat-card dark:border-zinc-50">
                         <h3 class="font-bold">Current Power</h3>
                         <p><span id="currentPowerText">0.00</span> kW</p>
                     </div>
                     <!-- Current load -->
-                    <div class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center">
+                    <div
+                        class="flex flex-col justify-center w-full p-4 border rounded-lg border-zinc-950 stat-card dark:border-zinc-50">
                         <h3 class="font-bold">Current Load</h3>
                         <p><span id="totalLoadText">0.00</span> kWh</p>
                     </div>
                     <!-- current temperature -->
-                    <div class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center">
+                    <div
+                        class="flex flex-col justify-center w-full p-4 border rounded-lg border-zinc-950 stat-card dark:border-zinc-50">
                         <h3 class="font-bold">Current Temperature</h3>
                         <p><span id="currentTempText">0.00</span> °C</p>
                     </div>
                     <!-- performance ratio -->
-                    <div class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center">
+                    <div
+                        class="flex flex-col justify-center w-full p-4 border rounded-lg border-zinc-950 stat-card dark:border-zinc-50">
                         <h3 class="font-bold">Performance Ratio</h3>
                         <p><span id="currentPRText">0.00</span>%</p>
                     </div>
@@ -68,7 +84,7 @@
                 <!-- highlight stats -->
                 <!-- Today yield -->
                 <div
-                    class="stat-card flex flex-col border-black border p-4 rounded-lg w-full justify-center h-full bg-black text-white">
+                    class="flex flex-col justify-center w-full h-full p-4 border rounded-lg text-zinc-50 bg-purple-950 border-purple-950 stat-card dark:bg-yellow-500 dark:text-zinc-950 dark:border-yellow-500">
                     <h3 class="font-bold md:text-2xl">Today Yield</h3>
                     <p class="md:font-light md:text-xl"><span id="totalYieldText">0.00</span> kWh</p>
                 </div>

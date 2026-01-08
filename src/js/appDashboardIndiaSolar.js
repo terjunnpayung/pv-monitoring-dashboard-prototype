@@ -1,4 +1,52 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const html = document.documentElement;
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const userPreference = localStorage.getItem('darkMode');
+
+    // DARK MODE
+    darkModeToggle.addEventListener('click', function () {
+        html.classList.toggle('dark');
+        let isDarkMode = html.classList.contains('dark');
+        localStorage.setItem('darkMode', isDarkMode);
+        if (isDarkMode) {
+            darkModeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 fill-yellow-500">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                </svg>`
+        }
+        else {
+            darkModeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 fill-purple-700">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>`
+        }
+
+        const chart = Chart.getChart('solarChart');
+        if (chart) {
+            chart.update();
+        }
+    })
+
+    if (userPreference) {
+        html.classList.toggle('dark', userPreference === 'true');
+        if (userPreference === 'true') {
+            darkModeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 fill-yellow-500">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                </svg>`
+        }
+        else {
+            darkModeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 fill-purple-700">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>`
+        }
+    }
+
     const getCSVAsObjects = async (url) => {
         try {
             const response = await fetch(url);
@@ -35,8 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     {
                         label: 'Power',
                         data: powerValues,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                        borderColor: 'rgba(118, 6, 198, 1)',
+                        backgroundColor: 'rgba(118, 6, 198, 0.2)',
                         yAxisID: 'yPower',
                         borderWidth: 1,
                         pointRadius: 1,
@@ -46,7 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     {
                         label: 'Irradiation',
                         data: irradiationValues,
-                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderColor: 'rgba(255, 151, 66, 1)',
+                        backgroundColor: 'rgba(255, 151, 66, 0.2)',
                         yAxisID: 'yIrr',
                         borderWidth: 1,
                         pointRadius: 1,
@@ -72,18 +121,26 @@ document.addEventListener("DOMContentLoaded", () => {
                         type: 'category',
                         ticks: {
                             maxTicksLimit: 24
+                        },
+                        grid: {
+                            color: () => document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(220, 220, 220, 1)'
                         }
                     },
                     yPower: {
                         type: 'linear',
                         position: 'left',
-                        title: { display: true, text: 'Power (kW)' }
+                        title: { display: true, text: 'Power (W)' },
+                        grid: {
+                            color: () => document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(220, 220, 220, 1)'
+                        }
                     },
                     yIrr: {
                         type: 'linear',
                         position: 'right',
-                        title: { display: true, text: 'Irradiation (kW/m²)' },
-                        grid: { drawOnChartArea: false }
+                        title: { display: true, text: 'Irradiation (W/m²)' },
+                        grid: {
+                            drawOnChartArea: false,
+                        }
                     }
                 }
             }
@@ -111,6 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Fungsi Utama untuk Memproses dan Menampilkan Data ---
     const updateDashboard = (targetDate, targetTime, combinedPowerData, combinedSensorData) => {
+        const timeInterval = 15 / 60;
+
         // POWER PROCESSING
         const powerMap = combinedPowerData.reduce((acc, curr) => {
             if (!curr.DateTime) return acc;
@@ -121,8 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // formatted date filter
             if (formattedDate === targetDate && timeKey <= targetTime) {
-                const powerVal = parseFloat(curr.PV || 0) / 1000;
-                acc[timeKey] = powerVal.toFixed(2);
+                const powerVal = parseFloat(curr.PV || 0);
+                acc[timeKey] = powerVal;
             }
             return acc;
         }, {});
@@ -137,14 +196,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // formatted date filter
             if (formattedDate === targetDate && timeKey <= targetTime) {
-                const energyVal = parseFloat(curr.PV || 0);
-                return acc + energyVal;
+                const powerVal = parseFloat(curr.PV || 0);
+                const energyInterval = powerVal * timeInterval;
+                return acc + energyInterval;
             }
             return acc;
         }, 0); // start from zero
 
         // LOAD PROCESSING
-        const totalLoadMap = combinedPowerData.reduce((acc, curr) => {
+        const LoadMap = combinedPowerData.reduce((acc, curr) => {
             if (!curr.DateTime) return acc;
 
             const [datePart, timePart] = curr.DateTime.split(' ');
@@ -169,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // formatted date filter
             if (formattedDate === targetDate && timeKey <= targetTime) {
-                const irrVal = parseFloat(curr.Irradiation || 0) * 1000;
+                const irrVal = parseFloat(curr.Irradiation || 0);
                 acc[timeKey] = irrVal;
             }
             return acc;
@@ -185,8 +245,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // formatted date filter
             if (formattedDate === targetDate && timeKey <= targetTime) {
-                const irrVal = parseFloat(curr.Irradiation || 0) * 1000;
-                return acc + irrVal;
+                const irrVal = parseFloat(curr.Irradiation || 0);
+                const irradiationInterval = irrVal * timeInterval;
+                return acc + irradiationInterval;
             }
             return acc;
         }, 0); // start from zero
@@ -211,32 +272,35 @@ document.addEventListener("DOMContentLoaded", () => {
         // PV Data
         const powerTime = Object.keys(powerMap).sort();
         const latestPowerTime = powerTime[powerTime.length - 1];
-        const currentPowerKW = latestPowerTime ? (powerMap[latestPowerTime]) : 0;
-        const totalEnergyKW = totalEnergyMap / 1000;
-        const totalLoadKWH = latestPowerTime ? (totalLoadMap[latestPowerTime] / 1000) : 0;;
+        const currentPower = latestPowerTime ? (powerMap[latestPowerTime]) : 0;
+        const currentLoad = latestPowerTime ? (LoadMap[latestPowerTime]) : 0;
+        const actualYield = totalEnergyMap;
+        console.log(actualYield);
 
         // Sensor Data
         const sensorTime = Object.keys(irrMap).sort();
         const latestSensorTime = sensorTime[sensorTime.length - 1];
-        const totalIrrKWHM = totalIrrMap / 1000;
         const currentTemp = latestSensorTime ? (tempMap[latestSensorTime]) : 0;
+        const totalIrradiation = totalIrrMap;
+        console.log(totalIrradiation);
 
         // PR PROCESSING
         let performanceRatio = 0; // %
-        const capacity = 300; // KWp
+        const pvCapacity = 300000; // KWp
+        const irradiationSTC = 1; // kWh/m2
 
-        if (totalIrrKWHM > 0) {
-            performanceRatio = (totalEnergyKW / (totalIrrKWHM * capacity)) * 100;
+        if (totalIrrMap > 0) {
+            performanceRatio = (actualYield / (pvCapacity * (totalIrradiation / irradiationSTC))) * 100;
         }
 
         const prDisplay = performanceRatio;
 
-        // A. Update Card Power
-        document.getElementById('currentPowerText').innerText = currentPowerKW;
-        // Update Card Load (Nilai Akumulasi)
-        document.getElementById('totalLoadText').innerText = totalLoadKWH.toFixed(2);
-        // Update Card Yield (Nilai Akumulasi)
-        document.getElementById('totalYieldText').innerText = totalEnergyKW.toFixed(2);
+        // A. Update Card Current Power
+        document.getElementById('currentPowerText').innerText = (currentPower / 1000).toFixed(2);
+        // Update Card Current Load
+        document.getElementById('totalLoadText').innerText = (currentLoad / 1000).toFixed(2);
+        // Update Card Today Yield
+        document.getElementById('totalYieldText').innerText = (actualYield / 1000).toFixed(2);
         // Update Card Temperature
         document.getElementById('currentTempText').innerText = currentTemp.toFixed(1);
         // Update Card PR
@@ -281,6 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const option = document.createElement('option');
                     option.value = site.id;
                     option.textContent = site.name;
+                    option.classList.add('text-zinc-950');
 
                     // Tandai sebagai 'selected' jika ID cocok dengan URL saat ini
                     if (site.id === currentPageId) {
@@ -312,6 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
             uniqueDates.forEach(date => {
                 const option = document.createElement('option');
                 option.value = date;
+                option.classList.add('text-zinc-950');
 
                 // Formatting Text
                 const dateObj = new Date(date);
