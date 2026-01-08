@@ -372,8 +372,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // DATA INITIALIZATION
-    const powerFiles = '../api/bandung-tv/bandung-tv-api-power.csv';
-    const sensorFile = '../api/bandung-tv/bandung-tv-api-weather.csv';
+    const powerFiles = '/src/api/bandung-tv/bandung-tv-api-power.csv';
+    const sensorFile = '/src/api/bandung-tv/bandung-tv-api-weather.csv';
     const sites = [
         { id: 'bandung-tv', name: 'Bandung TV' },
         { id: 'india-solar', name: 'India Solar' },

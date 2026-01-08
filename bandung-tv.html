@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bandung TV Main Dashboard</title>
     <!-- css -->
-    <link rel="stylesheet" href="/dist/output.css">
+    <link rel="stylesheet" href="./dist/output.css">
 </head>
 
 <body
     class="flex items-center justify-center w-full min-h-screen text-zinc-950 bg-zinc-50 font-poppins dark:text-zinc-50 dark:bg-zinc-900">
     <main id="mainContent" class="container flex flex-col h-full gap-8 px-8 pt-8 pb-12">
         <!-- title -->
-        <section class="flex items-center gap-2 title">
+        <section class="flex items-center justify-between gap-2 title">
             <button id="darkModeToggle" class="flex items-center justify-center"></button>
             <h1 class="font-bold text-left">PV Dashboard Monitoring System</h1>
+            <a href="index.html"
+                class="px-4 py-2 text-sm border rounded-lg border-zinc-950 dark:border-zinc-50">Back</a>
         </section>
         <!-- filter container -->
         <section class="flex flex-col gap-4 filter-container">
@@ -60,13 +62,13 @@
                     <div
                         class="flex flex-col justify-center w-full p-4 border rounded-lg border-zinc-950 stat-card dark:border-zinc-50">
                         <h3 class="font-bold">Current Power</h3>
-                        <p><span id="currentPowerText">0.00</span> MW</p>
+                        <p><span id="currentPowerText">0.00</span> kW</p>
                     </div>
                     <!-- Current load -->
                     <div
                         class="flex flex-col justify-center w-full p-4 border rounded-lg border-zinc-950 stat-card dark:border-zinc-50">
                         <h3 class="font-bold">Current Load</h3>
-                        <p><span id="totalLoadText">0.00</span> MWh</p>
+                        <p><span id="totalLoadText">0.00</span> kWh</p>
                     </div>
                     <!-- current temperature -->
                     <div
@@ -86,7 +88,7 @@
                 <div
                     class="flex flex-col justify-center w-full h-full p-4 border rounded-lg text-zinc-50 bg-purple-950 border-purple-950 stat-card dark:bg-yellow-500 dark:text-zinc-950 dark:border-yellow-500">
                     <h3 class="font-bold md:text-2xl">Today Yield</h3>
-                    <p class="md:font-light md:text-xl"><span id="totalYieldText">0.00</span> MWh</p>
+                    <p class="md:font-light md:text-xl"><span id="totalYieldText">0.00</span> kWh</p>
                 </div>
             </div>
             <!-- chart container -->
@@ -97,7 +99,7 @@
         </section>
     </main>
     <!-- js -->
-    <script src="../js/appDashboardIndiaSolar.js"></script>
+    <script src="./src/js/appDashboardBandungTV.js"></script>
     <!-- chart-js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
