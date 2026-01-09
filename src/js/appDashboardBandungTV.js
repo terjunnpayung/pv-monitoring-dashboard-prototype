@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 responsive: true,
                 interaction: {
                     mode: 'index',
-                    intersect: false,
+                    intersect: true,
                 },
                 maintainAspectRatio: false,
                 scales: {
