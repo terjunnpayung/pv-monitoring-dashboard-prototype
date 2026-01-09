@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     yPower: {
                         type: 'linear',
                         position: 'left',
-                        title: { display: true, text: 'Power (W)' },
+                        title: { display: true, text: 'Power (kW)' },
                         grid: {
                             color: () => document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(220, 220, 220, 1)'
                         }
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     yIrr: {
                         type: 'linear',
                         position: 'right',
-                        title: { display: true, text: 'Irradiation (W/m²)' },
+                        title: { display: true, text: 'Irradiation (kW/m²)' },
                         grid: {
                             drawOnChartArea: false,
                         }
